@@ -1,5 +1,10 @@
 use crate::config::{Block, Config, ConfigItem};
 
+pub trait NginxConfig {
+	fn to_string_level(&self, level: usize) -> String;
+	fn to_nginx(&self) -> String;
+}
+
 impl NginxConfig for Block {
 
 	fn to_nginx(&self) -> String {
@@ -7,13 +12,15 @@ impl NginxConfig for Block {
 	}
 
 	fn to_string_level(&self, level: usize) -> String {
-		let mut s = String::new();
 		let padding = " ".repeat(4 * level);
-		let params = if self.params.len() != 0 {format!(" {}", self.params.join(" "))} else {String::new()};
-		s.push_str(&format!("{}{}{} {{\n", padding, self.name, params));
-		s.push_str(&self.config.to_string_level(level + 1));
-		s.push_str(&format!("{}}}\n", padding));
-		return s;
+		let params = self.params.is_empty()
+			.then(String::new)
+			.unwrap_or_else(|| format!(" {}", self.params.join(" ")));
+
+		let header = format!("{}{}{} {{\n", padding, self.name, params);
+		let content = self.config.to_string_level(level + 1);
+		let footer = format!("{}}}\n", padding);
+		format!("{}{}{}", header, content, footer)
 	}
 
 }
@@ -25,24 +32,15 @@ impl NginxConfig for Config {
 	}
 
 	fn to_string_level(&self, level: usize) -> String {
-		let mut s = String::new();
 		let padding = " ".repeat(4 * level);
-		for item in &self.content {
+		self.content.iter().map(|item| {
 			match item {
 				ConfigItem::Directive(d) => {
-					s.push_str(&format!("{}{} {};\n", padding, d.name, d.values.join(" ")))
+					format!("{}{} {};\n", padding, d.name, d.values.join(" "))
 				},
-				ConfigItem::Block(b) => {
-					s.push_str(&b.to_string_level(level))
-				}
+				ConfigItem::Block(b) => b.to_string_level(level)
 			}
-		}
-		return s;
+		}).collect()
 	}
 
-}
-
-pub trait NginxConfig {
-	fn to_string_level(&self, level: usize) -> String;
-	fn to_nginx(&self) -> String;
 }
