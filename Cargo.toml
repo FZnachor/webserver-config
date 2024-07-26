@@ -1,13 +1,14 @@
 [package]
 name = "webserver-config"
-version = "0.0.2"
+version = "0.1.0"
 edition = "2021"
-authors = ["Filip Znachor <admin@codespace.cz>"]
+authors = ["Filip Znachor"]
 description = "Rust crate for web server config file generation"
 license = "MIT"
 repository = "https://git.codespace.cz/oohost/webserver-config"
 keywords = ["webserver", "apache2", "nginx", "config"]
 categories = ["config"]
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
