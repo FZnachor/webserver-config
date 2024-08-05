@@ -2,6 +2,13 @@
 
 A Rust crate for generating configuration files for web servers. Supported web servers include Apache2 and nginx.
 
+![version](https://img.shields.io/crates/v/webserver-config)
+![downloads](https://img.shields.io/crates/d/webserver-config)
+![license](https://img.shields.io/crates/l/webserver-config)
+
+- [Crates.io](https://crates.io/crates/webserver-config)
+- [Documentation](https://docs.rs/webserver-config/)
+
 ## Features
 
 - **Very Simple**: Easy to use and integrate, with a small and manageable codebase.
@@ -10,11 +17,10 @@ A Rust crate for generating configuration files for web servers. Supported web s
 
 ## Installation
 
-Add this crate to your `Cargo.toml`:
+Add this crate to your `Cargo.toml` or use the command bellow:
 
-```toml
-[dependencies]
-webserver-config = "0.1.0"
+```sh
+cargo add webserver-config
 ```
 
 ## Usage
