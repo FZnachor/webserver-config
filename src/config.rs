@@ -66,6 +66,11 @@ impl Block {
 		}
 	}
 
+	pub fn setup<F>(mut self, mut f: F) -> Self where F: FnMut(&mut Config) {
+		f(&mut self.config);
+		self
+	}
+
 	pub fn modify_config<F>(&mut self, mut f: F) where F: FnMut(&mut Config) {
 		f(&mut self.config)
 	}

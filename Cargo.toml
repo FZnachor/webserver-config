@@ -1,9 +1,9 @@
 [package]
 name = "webserver-config"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Filip Znachor"]
-description = "Rust crate for web server config file generation"
+description = "A Rust crate for generating configuration files for web servers."
 license = "MIT"
 repository = "https://git.codespace.cz/oohost/webserver-config"
 keywords = ["webserver", "apache2", "nginx", "config"]
